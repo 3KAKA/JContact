@@ -17,34 +17,26 @@ import android.view.View;
  */
 public class JIndexBarView extends View {
 
-    // index bar margin默认为10dp
+    // indexBarMargin默认为10dp
     float mJIndexBarMargin = 10;
 
-    // index bar text 默认字体大小为12sp
+    // 默认字体大小为12sp
     private float mJIndexBarTextSize = 12;
 
-    // user touched Y axis coordinate value
     float mSideIndexY;
 
-    // flag used in touch events manipulations
     boolean mIsIndexing = false;
 
-    // holds current section position selected by user
     int mCurrentSectionPosition = -1;
 
-    // array list to store section positions
     public ArrayList<Integer> mListSections;
 
-    // array list to store listView data
     ArrayList<String> mListItems;
     
     Paint mIndexPaint;
 
-    // context object
     Context mContext;
 
-    // interface object used as bridge between list view and index bar view for
-    // filtering list view content on touch event
     JIndexBarFilter mIndexBarFilter;
 
     
@@ -69,16 +61,13 @@ public class JIndexBarView extends View {
     public void setData(JListView listView, ArrayList<String> listItems,ArrayList<Integer> listSections) {
         this.mListItems = listItems;
         this.mListSections = listSections;
-        
-        // list view implements mIndexBarFilter interface
+
         mIndexBarFilter = listView;
 
-        // set index bar margin from resources
         mJIndexBarMargin = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, mJIndexBarMargin, mContext
                         .getResources().getDisplayMetrics());
 
-        // index bar item color and text size
         mIndexPaint = new Paint();
         mIndexPaint.setColor(Color.parseColor("#000000"));
         mIndexPaint.setAntiAlias(true);
@@ -87,8 +76,7 @@ public class JIndexBarView extends View {
                         .getResources().getDisplayMetrics()));
     }
 
-    
-    // draw view content on canvas using paint
+
     @Override
     protected void onDraw(Canvas canvas) {
         if (mListSections != null && mListSections.size() > 1) {
@@ -135,14 +123,8 @@ public class JIndexBarView extends View {
         switch (ev.getAction()) {
             
             case MotionEvent.ACTION_DOWN:
-                // If down event occurs inside index bar region, start indexing
                 if (contains(ev.getX(), ev.getY())) {
-                    // It demonstrates that the motion event started from index
-                    // bar
                     mIsIndexing = true;
-                    // Determine which section the point is in, and move the
-                    // list to
-                    // that section
                     filterListItem(ev.getY());
                     return true;
                 }
@@ -152,10 +134,8 @@ public class JIndexBarView extends View {
                 }
             case MotionEvent.ACTION_MOVE:
                 if (mIsIndexing) {
-                    // If this event moves inside index bar
+
                     if (contains(ev.getX(), ev.getY())) {
-                        // Determine which section the point is in, and move the
-                        // list to that section
                         filterListItem(ev.getY());
                         return true;
                     }

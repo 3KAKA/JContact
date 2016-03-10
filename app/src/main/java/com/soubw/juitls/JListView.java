@@ -149,13 +149,13 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 
 	@Override
 	protected void dispatchDraw(Canvas canvas) {
-		super.dispatchDraw(canvas);// draw list view elements (zIndex == 1)
+		super.dispatchDraw(canvas);
 
 		if (mJIndexBarView != null && mJIndexBarVisibility) {
-			drawChild(canvas, mJIndexBarView, getDrawingTime()); // draw index bar view (zIndex == 3)
+			drawChild(canvas, mJIndexBarView, getDrawingTime());
 		}
 		if (mPreviewTextView != null && mPreviewVisibility) {
-			drawChild(canvas, mPreviewTextView, getDrawingTime()); // draw preview text view (zIndex == 4)
+			drawChild(canvas, mPreviewTextView, getDrawingTime());
 		}
 	}
 

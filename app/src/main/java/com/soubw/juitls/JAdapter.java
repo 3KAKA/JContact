@@ -1,4 +1,3 @@
-// @author Bhavya Mehta
 package com.soubw.juitls;
 
 import java.util.ArrayList;
@@ -16,8 +15,9 @@ import android.widget.TextView;
 import com.soubw.jcontact.MainActivity;
 import com.soubw.jcontact.R;
 
-
-// Customized adaptor to populate data in PinnedHeaderListView
+/**
+ * Created by WX_JIN on 2016/3/10.
+ */
 public class JAdapter extends BaseAdapter{
 
 	private static final int TYPE_ITEM = 0;
