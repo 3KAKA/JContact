@@ -27,13 +27,10 @@ public class JAdapter extends BaseAdapter{
 	LayoutInflater mLayoutInflater;
 	int mCurrentSectionPosition = 0, mNextSectionPostion = 0;
 
-	// array list to store section positions
 	ArrayList<Integer> mListSectionPos;
 
-	// array list to store list view data
 	ArrayList<String> mListItems;
 
-	// context object
 	Context mContext;
 
 	public JAdapter(Context context, ArrayList<String> listItems, ArrayList<Integer> listSectionPos) {

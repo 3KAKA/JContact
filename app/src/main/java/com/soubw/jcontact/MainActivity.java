@@ -90,7 +90,7 @@ public class MainActivity extends Activity{
             jFilterList.clear();
             for (JContacts contact : jContactsList) {
                 String name = contact.getjName();
-                if (name.indexOf(s.toString()) != -1 || (new CharacterParser()).getSelling(name).startsWith(s.toString())) {
+                if (name.indexOf(s.toString()) != -1 || (new CharacterParser()).getSelling(name).contains(s.toString())) {
                     jFilterList.add(contact);
                 }
             }
@@ -150,27 +150,27 @@ public class MainActivity extends Activity{
         protected Void doInBackground(List<JContacts>... params) {
             mListItems.clear();
             mListSectionPos.clear();
-            ArrayList<String> items = new ArrayList<>();
+//            ArrayList<String> items = new ArrayList<>();
             List<JContacts> itemsList = params[0];
-            for(JContacts contacts: itemsList){
-                items.add(contacts.getjName());
-            }
-            if (items.size() > 0) {
+//            for(JContacts contacts: itemsList){
+//                items.add(new CharacterParser().getSelling(contacts.getjName()));
+//            }
+            if (itemsList.size() > 0) {
 
-                Collections.sort(items, new SortIgnoreCase());
-
+                //Collections.sort(items, new SortIgnoreCase());
+                Collections.sort(itemsList, new JSortComparator());
                 String prev_section = "";
-                for (String current_item : items) {
-                    String current_section = current_item.substring(0, 1).toUpperCase(Locale.getDefault());
+                for (JContacts current_item : itemsList) {
+                    String current_section = new CharacterParser().getSelling(current_item.getjName()).substring(0, 1).toUpperCase(Locale.getDefault());
 
                     if (!prev_section.equals(current_section)) {
                         mListItems.add(current_section);
-                        mListItems.add(current_item);
+                        mListItems.add(current_item.getjName());
                         // array list of section positions
                         mListSectionPos.add(mListItems.indexOf(current_section));
                         prev_section = current_section;
                     } else {
-                        mListItems.add(current_item);
+                        mListItems.add(current_item.getjName());
                     }
                 }
             }

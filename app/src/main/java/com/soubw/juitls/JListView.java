@@ -196,7 +196,6 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 
 		initJClearEditText(context);
 
-
 		initFooter(context);
 
 	}

@@ -26,7 +26,7 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 	}
 
 	public JClearEditText(Context context, AttributeSet attrs) {
-		// 这里构造方法也很重要，不加这个很多属性不能再XML里面定义
+		// 这里构造方法也很重要，不加自定义EditText的很多属性就失效了
 		this(context, attrs, android.R.attr.editTextStyle);
 	}
 
@@ -36,7 +36,6 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 	}
 
 	private void init() {
-		// 获取EditText的DrawableRight,假如没有设置我们就使用默认的图片
 		mClearDrawable = getCompoundDrawables()[2];
 		if (mClearDrawable == null) {
 			mClearDrawable = getResources().getDrawable(R.drawable.jclearedittext_btn_bg);
