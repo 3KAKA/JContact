@@ -4,13 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <!--<com.soubw.juitls.JListView-->
-        <!--android:id="@+id/lvList"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:dividerHeight="0.1dp"-->
-        <!--android:divider="@android:color/black"-->
-        <!--android:scrollbars="none"/>-->
 
     <FrameLayout
         android:layout_width="fill_parent"
