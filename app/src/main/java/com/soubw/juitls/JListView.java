@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * Created by WX_JIN on 2016/3/10.
  */
-public class JListView extends ListView implements OnScrollListener,IIndexBarFilter {
+public class JListView extends ListView implements OnScrollListener,JIndexBarFilter {
 
 	private float mLastY = -1;
 

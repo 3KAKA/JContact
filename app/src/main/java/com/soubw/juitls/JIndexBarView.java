@@ -45,7 +45,7 @@ public class JIndexBarView extends View {
 
     // interface object used as bridge between list view and index bar view for
     // filtering list view content on touch event
-    IIndexBarFilter mIndexBarFilter;
+    JIndexBarFilter mIndexBarFilter;
 
     
     public JIndexBarView(Context context) {
