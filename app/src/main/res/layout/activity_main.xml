@@ -13,7 +13,7 @@
         <include
             layout="@layout/loading_view"
             />
-        <com.soubw.juitls.JListView
+        <com.soubw.jcontact.JListView
         android:id="@+id/lvList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

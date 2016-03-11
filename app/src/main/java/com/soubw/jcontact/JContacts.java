@@ -1,4 +1,4 @@
-package com.soubw.juitls;
+package com.soubw.jcontact;
 
 /**
  * Created by WX_JIN on 2016/3/10.

@@ -1,4 +1,4 @@
-package com.soubw.juitls;
+package com.soubw.jcontact;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -11,7 +11,6 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.soubw.jcontact.R;
 /**
  * Created by WX_JIN on 2016/3/10.
  */

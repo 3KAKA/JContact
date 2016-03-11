@@ -7,19 +7,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
-
-import com.soubw.juitls.CharacterParser;
-import com.soubw.juitls.JAdapter;
-import com.soubw.juitls.JContacts;
-import com.soubw.juitls.JIndexBarView;
-import com.soubw.juitls.JListView;
-import com.soubw.juitls.JLoadData;
-import com.soubw.juitls.JSortComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 

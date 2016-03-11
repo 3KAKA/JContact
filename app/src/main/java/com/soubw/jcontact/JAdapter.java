@@ -1,21 +1,13 @@
-package com.soubw.juitls;
+package com.soubw.jcontact;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
-
-import com.soubw.jcontact.MainActivity;
-import com.soubw.jcontact.R;
 
 /**
  * Created by WX_JIN on 2016/3/10.

@@ -1,10 +1,4 @@
-/*
- * Filename	CharacterParser.java
- * Company	�Ϻ�����-�ֶ��ֹ�˾��
- * @author	LuRuihui
- * @version	0.1
- */
-package com.soubw.juitls;
+package com.soubw.jcontact;
 
 /**
  * Java汉字转换为拼音
