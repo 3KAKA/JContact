@@ -32,7 +32,7 @@ public class MainActivity extends Activity{
 
     ArrayList<Integer> mListSectionPos;
 
-    ArrayList<String> mListItems;
+    ArrayList<JContacts> mListItems;
 
     JAdapter mAdaptor;
 
@@ -46,7 +46,7 @@ public class MainActivity extends Activity{
         jContactsList = new ArrayList<>();
         jFilterList = new ArrayList<>();
         mListSectionPos = new ArrayList<Integer>();
-        mListItems = new ArrayList<String>();
+        mListItems = new ArrayList<JContacts>();
         mLoadingView = (ProgressBar) findViewById(R.id.loading_view);
         this.lvList.setJClearEditTextListener(new JListView.JClearEditTextListener() {
             @Override
@@ -90,13 +90,13 @@ public class MainActivity extends Activity{
             jFilterList.clear();
             for (JContacts contact : jContactsList) {
                 String name = contact.getjName();
-                if (name.indexOf(s.toString()) != -1 || (new CharacterParser()).getSelling(name).contains(s.toString())) {
+                String num = contact.getjPhoneNumber();
+                if (name.indexOf(s.toString()) != -1 || (new CharacterParser()).getSelling(name).contains(s.toString())
+                        || (new CharacterParser()).getSelling(num).contains(s.toString())) {
                     jFilterList.add(contact);
                 }
             }
         }
-        // 根据a-z进行排序
-        Collections.sort(jFilterList, new JSortComparator());
         new Poplulate().execute(jFilterList);
     }
 
@@ -106,19 +106,16 @@ public class MainActivity extends Activity{
 
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
 
-        // set index bar view
         JIndexBarView jIndexBarView = (JIndexBarView) inflater.inflate(R.layout.index_bar_view, lvList, false);
         jIndexBarView.setData(lvList, mListItems, mListSectionPos);
         lvList.setJIndexBarView(jIndexBarView,mListSectionPos);
 
         View previewTextView = inflater.inflate(R.layout.preview_view, lvList, false);
         lvList.setPreviewView(previewTextView);
-       // lvList.setJClearEditTextFoucus();
 
     }
 
     private void setIndexBarViewVisibility(String constraint) {
-        // hide index bar for search results
         if (constraint != null && constraint.length() > 0) {
             lvList.setIndexBarVisibility(false);
         } else {
@@ -141,7 +138,6 @@ public class MainActivity extends Activity{
 
         @Override
         protected void onPreExecute() {
-            // show loading indicator
             showLoading(lvList, mLoadingView);
             super.onPreExecute();
         }
@@ -150,27 +146,23 @@ public class MainActivity extends Activity{
         protected Void doInBackground(List<JContacts>... params) {
             mListItems.clear();
             mListSectionPos.clear();
-//            ArrayList<String> items = new ArrayList<>();
             List<JContacts> itemsList = params[0];
-//            for(JContacts contacts: itemsList){
-//                items.add(new CharacterParser().getSelling(contacts.getjName()));
-//            }
             if (itemsList.size() > 0) {
-
-                //Collections.sort(items, new SortIgnoreCase());
+                // 根据a-z进行排序
                 Collections.sort(itemsList, new JSortComparator());
                 String prev_section = "";
+                JContacts item ;
                 for (JContacts current_item : itemsList) {
                     String current_section = new CharacterParser().getSelling(current_item.getjName()).substring(0, 1).toUpperCase(Locale.getDefault());
 
                     if (!prev_section.equals(current_section)) {
-                        mListItems.add(current_section);
-                        mListItems.add(current_item.getjName());
-                        // array list of section positions
-                        mListSectionPos.add(mListItems.indexOf(current_section));
+                        item = new JContacts(current_section);
+                        mListItems.add(item);
+                        mListItems.add(current_item);
+                        mListSectionPos.add(mListItems.indexOf(item));
                         prev_section = current_section;
                     } else {
-                        mListItems.add(current_item.getjName());
+                        mListItems.add(current_item);
                     }
                 }
             }
@@ -180,7 +172,6 @@ public class MainActivity extends Activity{
         @Override
         protected void onPostExecute(Void result) {
             if (!isCancelled()) {
-                //setListAdaptor();
                 mAdaptor.setUpdateDate(mListItems,mListSectionPos);
                 lvList.setJClearEditTextFoucus();
                 showContent(lvList, mLoadingView);
@@ -188,12 +179,4 @@ public class MainActivity extends Activity{
             super.onPostExecute(result);
         }
     }
-
-    public class SortIgnoreCase implements Comparator<String> {
-        public int compare(String s1, String s2) {
-            return s1.compareToIgnoreCase(s2);
-        }
-    }
-
-
 }

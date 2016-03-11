@@ -1,7 +1,9 @@
 package com.soubw.juitls;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -25,15 +27,14 @@ public class JAdapter extends BaseAdapter{
 	private static final int TYPE_MAX_COUNT = TYPE_SECTION + 1;
 
 	LayoutInflater mLayoutInflater;
-	int mCurrentSectionPosition = 0, mNextSectionPostion = 0;
 
 	ArrayList<Integer> mListSectionPos;
 
-	ArrayList<String> mListItems;
+	ArrayList<JContacts> mListItems;
 
 	Context mContext;
 
-	public JAdapter(Context context, ArrayList<String> listItems, ArrayList<Integer> listSectionPos) {
+	public JAdapter(Context context, ArrayList<JContacts> listItems, ArrayList<Integer> listSectionPos) {
 		this.mContext = context;
 		this.mListItems = listItems;
 		this.mListSectionPos = listSectionPos;
@@ -79,11 +80,9 @@ public class JAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder = null;
-
+		int type = getItemViewType(position);
 		if (convertView == null) {
 			holder = new ViewHolder();
-			int type = getItemViewType(position);
-
 			switch (type) {
 			case TYPE_ITEM:
 				convertView = mLayoutInflater.inflate(R.layout.row_view, null);
@@ -97,26 +96,18 @@ public class JAdapter extends BaseAdapter{
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
-		holder.textView.setText(mListItems.get(position).toString());
+		switch (type) {
+			case TYPE_ITEM:
+				holder.textView.setText(mListItems.get(position).getjName()+mListItems.get(position).getjPhoneNumber());
+				break;
+			case TYPE_SECTION:
+				holder.textView.setText(mListItems.get(position).getjName());
+				break;
+		}
 		return convertView;
 	}
 
-
-	public int getCurrentSectionPosition(int position) {
-		String listChar = mListItems.get(position).toString().substring(0, 1).toUpperCase(Locale.getDefault());
-		return mListItems.indexOf(listChar);
-	}
-
-	public int getNextSectionPosition(int currentSectionPosition) {
-		int index = mListSectionPos.indexOf(currentSectionPosition);
-		if ((index + 1) < mListSectionPos.size()) {
-			return mListSectionPos.get(index + 1);
-		}
-		return mListSectionPos.get(index);
-	}
-
-	public void setUpdateDate(ArrayList<String> listItems, ArrayList<Integer> listSectionPos){
+	public void setUpdateDate(ArrayList<JContacts> listItems, ArrayList<Integer> listSectionPos){
 		this.mListItems = listItems;
 		this.mListSectionPos = listSectionPos;
 		notifyDataSetChanged();

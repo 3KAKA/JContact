@@ -8,6 +8,12 @@ public class JContacts {
     private String jName;
     private String jPhoneNumber;
 
+    public JContacts(){}
+
+    public JContacts(String jName){
+        this.jName = jName;
+    }
+
     public String getjName() {
         return jName;
     }

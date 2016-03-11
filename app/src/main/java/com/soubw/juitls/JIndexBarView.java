@@ -31,7 +31,7 @@ public class JIndexBarView extends View {
 
     public ArrayList<Integer> mListSections;
 
-    ArrayList<String> mListItems;
+    ArrayList<JContacts> mListItems;
     
     Paint mIndexPaint;
 
@@ -58,7 +58,7 @@ public class JIndexBarView extends View {
     }
     
 
-    public void setData(JListView listView, ArrayList<String> listItems,ArrayList<Integer> listSections) {
+    public void setData(JListView listView, ArrayList<JContacts> listItems,ArrayList<Integer> listSections) {
         this.mListItems = listItems;
         this.mListSections = listSections;
 
@@ -96,7 +96,7 @@ public class JIndexBarView extends View {
 
     
     public String getSectionText(int sectionPosition) {
-        return mListItems.get(sectionPosition);
+        return mListItems.get(sectionPosition).getjName();
     }
 
     
@@ -113,7 +113,7 @@ public class JIndexBarView extends View {
 
         if (mCurrentSectionPosition >= 0 && mCurrentSectionPosition < mListSections.size()) {
             int position = mListSections.get(mCurrentSectionPosition);
-            String previewText = mListItems.get(position);
+            String previewText = mListItems.get(position).getjName();
             mIndexBarFilter.filterList(mSideIndexY, position+2, previewText);
         }
     }
