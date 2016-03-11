@@ -10,10 +10,6 @@ public class JContacts {
 
     public JContacts(){}
 
-    public JContacts(String jName){
-        this.jName = jName;
-    }
-
     public String getjName() {
         return jName;
     }

@@ -12,48 +12,66 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-
+/**
+ * Created by WX_JIN on 2016/3/10.
+ */
 public class MainActivity extends Activity{
+
+    /**
+     * 完整手机通讯录好友信息列表
+     */
+    private List<JContacts> jContactsList;
+    /**
+     * 包含字母信息和好友信息列表
+     */
+    private ArrayList<JContacts> mListItems;
+    /**
+     * 导航字母列表
+     */
+    private ArrayList<Integer> mListSectionPos;
 
     private JListView lvList;
 
-    private List<JContacts> jContactsList;
-    private List<JContacts> jFilterList;
+    private JAdapter mAdaptor;
 
-    ArrayList<Integer> mListSectionPos;
-
-    ArrayList<JContacts> mListItems;
-
-    JAdapter mAdaptor;
-
-    ProgressBar mLoadingView;
+    private ProgressBar mLoadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        this.lvList = (JListView) findViewById(R.id.lvList);
+
         jContactsList = new ArrayList<>();
-        jFilterList = new ArrayList<>();
         mListSectionPos = new ArrayList<Integer>();
         mListItems = new ArrayList<JContacts>();
+        initView();
+
+        loadData();
+
+    }
+
+    private void initView(){
         mLoadingView = (ProgressBar) findViewById(R.id.loading_view);
+        mAdaptor = new JAdapter(this, mListItems, mListSectionPos);
+        this.lvList = (JListView) findViewById(R.id.lvList);
+
+        lvList.setAdapter(mAdaptor);
         this.lvList.setJClearEditTextListener(new JListView.JClearEditTextListener() {
             @Override
             public void requestRefreshAdapter(CharSequence s) {
                 String str = s.toString();
                 if (mAdaptor != null && str != null){
-                    // mAdaptor.getFilter().filter(str);
                     if(jContactsList != null){
                         filterData(str);
                     }
                 }
-
             }
         });
-        setListAdaptor();
-        loadData();
-
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        JIndexBarView jIndexBarView = (JIndexBarView) inflater.inflate(R.layout.index_bar_view, lvList, false);
+        jIndexBarView.setData(lvList, mListItems, mListSectionPos);
+        lvList.setJIndexBarView(jIndexBarView,mListSectionPos);
+        lvList.setPreviewView(inflater.inflate(R.layout.preview_view, lvList, false));
     }
 
     private void loadData(){
@@ -64,15 +82,19 @@ public class MainActivity extends Activity{
                 jContactsList = list;
                 filterData(null);
             }
-
             @Override
             public void doFailed(String error) {
             }
         });
     }
 
+    /**
+     * 过滤列表数据
+     * @param s
+     */
     private void filterData(String s){
         setIndexBarViewVisibility(s);
+        List<JContacts> jFilterList = new ArrayList<>();
         if (TextUtils.isEmpty(s)) {
             jFilterList.clear();
             jFilterList.addAll(jContactsList);
@@ -87,22 +109,7 @@ public class MainActivity extends Activity{
                 }
             }
         }
-        new Poplulate().execute(jFilterList);
-    }
-
-    private void setListAdaptor() {
-        mAdaptor = new JAdapter(this, mListItems, mListSectionPos);
-        lvList.setAdapter(mAdaptor);
-
-        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-
-        JIndexBarView jIndexBarView = (JIndexBarView) inflater.inflate(R.layout.index_bar_view, lvList, false);
-        jIndexBarView.setData(lvList, mListItems, mListSectionPos);
-        lvList.setJIndexBarView(jIndexBarView,mListSectionPos);
-
-        View previewTextView = inflater.inflate(R.layout.preview_view, lvList, false);
-        lvList.setPreviewView(previewTextView);
-
+        new LoadFilter().execute(jFilterList);
     }
 
     private void setIndexBarViewVisibility(String constraint) {
@@ -113,8 +120,7 @@ public class MainActivity extends Activity{
         }
     }
 
-    private class Poplulate extends AsyncTask<List<JContacts>, Void, Void> {
-
+    private class LoadFilter extends AsyncTask<List<JContacts>, Void, Void> {
         private void showLoading(View contentView, View loadingView) {
             contentView.setVisibility(View.GONE);
             loadingView.setVisibility(View.VISIBLE);
@@ -124,8 +130,6 @@ public class MainActivity extends Activity{
             contentView.setVisibility(View.VISIBLE);
             loadingView.setVisibility(View.GONE);
         }
-
-
         @Override
         protected void onPreExecute() {
             showLoading(lvList, mLoadingView);
@@ -146,7 +150,8 @@ public class MainActivity extends Activity{
                     String current_section = new CharacterParser().getSelling(current_item.getjName()).substring(0, 1).toUpperCase(Locale.getDefault());
 
                     if (!prev_section.equals(current_section)) {
-                        item = new JContacts(current_section);
+                        item = new JContacts();
+                        item.setjName(current_section);
                         mListItems.add(item);
                         mListItems.add(current_item);
                         mListSectionPos.add(mListItems.indexOf(item));
