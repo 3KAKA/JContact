@@ -8,6 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.soubw.jcontactlib.CharacterParser;
+import com.soubw.jcontactlib.JAdapter;
+import com.soubw.jcontactlib.JContacts;
+import com.soubw.jcontactlib.JIndexBarView;
+import com.soubw.jcontactlib.JListView;
+import com.soubw.jcontactlib.JLoadData;
+import com.soubw.jcontactlib.JSortComparator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

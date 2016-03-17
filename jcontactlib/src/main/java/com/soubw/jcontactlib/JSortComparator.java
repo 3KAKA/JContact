@@ -1,4 +1,4 @@
-package com.soubw.jcontact;
+package com.soubw.jcontactlib;
 
 import java.util.Comparator;
 

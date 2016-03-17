@@ -1,4 +1,4 @@
-package com.soubw.jcontact;
+package com.soubw.jcontactlib;
 
 /**
  * Java汉字转换为拼音

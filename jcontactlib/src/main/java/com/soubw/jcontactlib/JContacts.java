@@ -1,4 +1,4 @@
-package com.soubw.jcontact;
+package com.soubw.jcontactlib;
 
 /**
  * Created by WX_JIN on 2016/3/10.

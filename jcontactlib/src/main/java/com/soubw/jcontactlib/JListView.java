@@ -1,4 +1,4 @@
-package com.soubw.jcontact;
+package com.soubw.jcontactlib;
 
 import android.content.Context;
 import android.graphics.Canvas;

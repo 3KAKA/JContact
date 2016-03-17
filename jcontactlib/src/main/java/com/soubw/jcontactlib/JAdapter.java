@@ -1,4 +1,4 @@
-package com.soubw.jcontact;
+package com.soubw.jcontactlib;
 
 import java.util.ArrayList;
 
@@ -77,10 +77,10 @@ public class JAdapter extends BaseAdapter{
 			holder = new ViewHolder();
 			switch (type) {
 			case TYPE_ITEM:
-				convertView = mLayoutInflater.inflate(R.layout.row_view, null);
+				convertView = mLayoutInflater.inflate(R.layout.jcontact_row_view, null);
 				break;
 			case TYPE_SECTION:
-				convertView = mLayoutInflater.inflate(R.layout.section_row_view, null);
+				convertView = mLayoutInflater.inflate(R.layout.jcontact_section_row_view, null);
 				break;
 			}
 			holder.textView = (TextView) convertView.findViewById(R.id.row_title);

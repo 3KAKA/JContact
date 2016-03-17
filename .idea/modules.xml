@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/JContact.iml" filepath="$PROJECT_DIR$/JContact.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jcontactlib/jcontactlib.iml" filepath="$PROJECT_DIR$/jcontactlib/jcontactlib.iml" />
     </modules>
   </component>
 </project>
