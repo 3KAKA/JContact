@@ -5,6 +5,8 @@ package com.soubw.jcontactlib;
  */
 public class JContacts {
 
+
+
     private String jName;
     private String jPhoneNumber;
 

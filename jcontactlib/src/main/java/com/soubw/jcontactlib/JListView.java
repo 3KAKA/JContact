@@ -218,6 +218,7 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 
 	private void initFooter(Context context){
 		footerLayout = new LinearLayout(context);
+		footerLayout.setClickable(false);
 		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,0);
 		footerLayout.setLayoutParams(layoutParams);
 		addFooterView(footerLayout);
