@@ -7,7 +7,6 @@ import android.widget.ProgressBar;
 import com.soubw.jcontactlib.JAdapter;
 import com.soubw.jcontactlib.JContacts;
 import com.soubw.jcontactlib.JListView;
-import com.soubw.jcontactlib.JLoadData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,7 @@ public class MainActivity extends Activity{
     /**
      * 完整手机通讯录好友信息列表
      */
-    private List<JContacts> jContactsList;
+    private List<MainBean> jContactsList;
 
     private JAdapter mAdaptor;
 
@@ -35,7 +34,6 @@ public class MainActivity extends Activity{
 
         jContactsList = new ArrayList<>();
         initView();
-
         loadData();
 
     }
@@ -61,7 +59,7 @@ public class MainActivity extends Activity{
     private void loadData(){
         JLoadData.getIntance().loadLocalContacts(MainActivity.this, new JLoadData.JLoadDataListener() {
             @Override
-            public void doSuccess(List<JContacts> list) {
+            public void doSuccess(List<MainBean> list) {
                 jContactsList.clear();
                 jContactsList = list;
                 mAdaptor.setjContactsList(jContactsList);

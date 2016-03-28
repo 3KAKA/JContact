@@ -8,7 +8,6 @@ import com.soubw.jcontactlib.JContacts;
 import com.soubw.jcontactlib.JListView;
 import com.soubw.jcontactlib.JViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,18 +16,19 @@ import java.util.List;
 public class MainAdapter extends JAdapter {
 
 
-    public MainAdapter(Context context, List<JContacts> jContactsList, JListView lvList, int indexBarViewId, int previewViewId, int itemLayoutId, int sectionLayoutId, View loadingView) {
+    public MainAdapter(Context context, List<MainBean> jContactsList, JListView lvList, int indexBarViewId, int previewViewId, int itemLayoutId, int sectionLayoutId, View loadingView) {
         super(context, jContactsList, lvList, indexBarViewId, previewViewId, itemLayoutId, sectionLayoutId, loadingView);
     }
 
     @Override
     public void convert(JViewHolder holder, JContacts bean, int type) {
+        MainBean b = (MainBean) bean;
         switch (type) {
             case TYPE_ITEM:
-                holder.setText(R.id.row_title,bean.getjName()+bean.getjPhoneNumber()+"aaaa");
+                holder.setText(R.id.row_title,bean.getjName()+b.getWxj());
                 break;
             case TYPE_SECTION:
-                holder.setText(R.id.row_title,bean.getjName());
+                holder.setText(R.id.row_title,bean.getjFirstWord());
                 break;
         }
     }

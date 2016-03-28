@@ -51,20 +51,17 @@ public class CharacterParser {
 			"yin", "ying", "yo", "yong", "you", "yu", "yuan", "yue", "yun", "za", "zai", "zan", "zang", "zao", "ze", "zei", "zen", "zeng", "zha",
 			"zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuai", "zhuan", "zhuang", "zhui",
 			"zhun", "zhuo", "zi", "zong", "zou", "zu", "zuan", "zui", "zun", "zuo"};
+
 	private StringBuilder buffer;
-	private String resource;
-	private static CharacterParser characterParser = new CharacterParser();
+
+	private static class InnerInstance{
+		private static final CharacterParser instance = new CharacterParser();
+	}
+
+	private CharacterParser(){}
 
 	public static CharacterParser getInstance() {
-		return characterParser;
-	}
-
-	public String getResource() {
-		return resource;
-	}
-
-	public void setResource(String resource) {
-		this.resource = resource;
+		return InnerInstance.instance;
 	}
 
 	/** * 汉字转成ASCII码 * * @param chs * @return */
@@ -123,10 +120,6 @@ public class CharacterParser {
 			buffer.append(value);
 		}
 		return buffer.toString();
-	}
-
-	public String getSpelling() {
-		return this.getSelling(this.getResource());
 	}
 
 }

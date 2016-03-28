@@ -1,4 +1,4 @@
-package com.soubw.jcontactlib;
+package com.soubw.jcontact;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+
+import com.soubw.jcontactlib.JContacts;
 
 /**
  * Created by WX_JIN on 2016/3/10.
@@ -28,7 +30,7 @@ public class JLoadData {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<JContacts> listContacts = null;
+                List<MainBean> listContacts = null;
                 try {
                     ContentResolver resolver = context.getApplicationContext().getContentResolver();
                     Cursor phoneCursor = resolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, "sort_key"}, null, null, "sort_key COLLATE LOCALIZED ASC");
@@ -39,15 +41,16 @@ public class JLoadData {
                     int PHONES_NUMBER_INDEX = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                     int PHONES_DISPLAY_NAME_INDEX = phoneCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
                     if (phoneCursor.getCount() > 0) {
-                        listContacts = new ArrayList<JContacts>();
+                        listContacts = new ArrayList<MainBean>();
                         while (phoneCursor.moveToNext()) {
                             String phoneNumber = phoneCursor.getString(PHONES_NUMBER_INDEX);
                             if (TextUtils.isEmpty(phoneNumber))
                                 continue;
                             String contactName = phoneCursor.getString(PHONES_DISPLAY_NAME_INDEX);
-                            JContacts wxjContact = new JContacts();
+                            MainBean wxjContact = new MainBean();
                             wxjContact.setjName(contactName);
                             wxjContact.setjPhoneNumber(phoneNumber);
+                            wxjContact.setWxj("wxjjjjjj");
                             listContacts.add(wxjContact);
                         }
                     }
@@ -64,7 +67,7 @@ public class JLoadData {
  
     
     public interface JLoadDataListener {
-        void doSuccess(List<JContacts> list);
+        void doSuccess(List<MainBean> list);
         void doFailed(String error);
     }
 }

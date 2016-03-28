@@ -17,7 +17,7 @@ import android.widget.TextView;
 /**
  * Created by WX_JIN on 2016/3/10.
  */
-public abstract class JAdapter extends BaseAdapter{
+public abstract class JAdapter<T extends JContacts> extends BaseAdapter{
 
 	public static final int TYPE_ITEM = 0;
 	public static final int TYPE_SECTION = 1;
@@ -29,17 +29,17 @@ public abstract class JAdapter extends BaseAdapter{
 	/**
 	 * 完整手机通讯录好友信息列表
 	 */
-	private List<JContacts> jContactsList;
+	private List<T> jContactsList;
 
 	/**
 	 * 包含字母信息和好友信息列表
 	 */
-	ArrayList<Integer> mListSectionPos = new ArrayList<Integer>();
+	ArrayList<Integer> mListSectionPos = new ArrayList<>();
 
 	/**
 	 * 导航字母列表
 	 */
-	ArrayList<JContacts> mListItems = new ArrayList<JContacts>();
+	ArrayList<T> mListItems = new ArrayList<>();
 
 	Context mContext;
 
@@ -51,7 +51,7 @@ public abstract class JAdapter extends BaseAdapter{
 	View mloadingView;
 
 	public JAdapter(Context context,
-					List<JContacts> jContactsList,
+					List<T> jContactsList,
 					JListView lvList,
 					int indexBarViewId,
 					int previewViewId,
@@ -107,7 +107,7 @@ public abstract class JAdapter extends BaseAdapter{
 	}
 
 	@Override
-	public JContacts getItem(int position) {
+	public T getItem(int position) {
 		return mListItems.get(position);
 	}
 
@@ -132,16 +132,23 @@ public abstract class JAdapter extends BaseAdapter{
 		return holder.getConvertView();
 	}
 
-	public abstract void convert(JViewHolder holder, JContacts bean,int type);
+	/**
+	 * 抽象方法
+	 * 填充数据
+	 * @param holder
+	 * @param bean
+	 * @param type
+     */
+	public abstract void convert(JViewHolder holder, T bean,int type);
 
-	private void setUpdateDate(ArrayList<JContacts> listItems, ArrayList<Integer> listSectionPos){
+	private void setUpdateDate(ArrayList<T> listItems, ArrayList<Integer> listSectionPos){
 		this.mListItems = listItems;
 		this.mListSectionPos = listSectionPos;
 		notifyDataSetChanged();
 	}
 
 
-	public void setjContactsList(List<JContacts> jContactsList){
+	public void setjContactsList(List<T> jContactsList){
 		this.jContactsList = jContactsList;
 		filterData(null);
 	}
@@ -154,17 +161,17 @@ public abstract class JAdapter extends BaseAdapter{
 	 */
 	private void filterData(String s){
 		setIndexBarViewVisibility(s);
-		List<JContacts> jFilterList = new ArrayList<>();
+		List<T> jFilterList = new ArrayList<>();
 		if (TextUtils.isEmpty(s)) {
 			jFilterList.clear();
 			jFilterList.addAll(jContactsList);
 		} else {
 			jFilterList.clear();
-			for (JContacts contact : jContactsList) {
+			for (T contact : jContactsList) {
 				String name = contact.getjName();
 				String num = contact.getjPhoneNumber();
-				if (name.indexOf(s.toString()) != -1 || (new CharacterParser()).getSelling(name).contains(s.toString())
-						|| (new CharacterParser()).getSelling(num).contains(s.toString())) {
+				if (name.indexOf(s.toString()) != -1 || CharacterParser.getInstance().getSelling(name).contains(s.toString())
+						|| CharacterParser.getInstance().getSelling(num).contains(s.toString())) {
 					jFilterList.add(contact);
 				}
 			}
@@ -172,7 +179,7 @@ public abstract class JAdapter extends BaseAdapter{
 		new LoadFilter().execute(jFilterList);
 	}
 
-	private class LoadFilter extends AsyncTask<List<JContacts>, Void, Void> {
+	private class LoadFilter extends AsyncTask<List<T>, Void, Void> {
 		private void showLoading(View contentView, View loadingView) {
 			contentView.setVisibility(View.GONE);
 			loadingView.setVisibility(View.VISIBLE);
@@ -189,24 +196,22 @@ public abstract class JAdapter extends BaseAdapter{
 		}
 
 		@Override
-		protected Void doInBackground(List<JContacts>... params) {
+		protected Void doInBackground(List<T>... params) {
 			mListItems.clear();
 			mListSectionPos.clear();
-			List<JContacts> itemsList = params[0];
+			List<T> itemsList = params[0];
 			if (itemsList.size() > 0) {
 				// 根据a-z进行排序
 				Collections.sort(itemsList, new JSortComparator());
 				String prev_section = "";
-				JContacts item ;
-				for (JContacts current_item : itemsList) {
-					String current_section = new CharacterParser().getSelling(current_item.getjName()).substring(0, 1).toUpperCase(Locale.getDefault());
+				for (T current_item : itemsList) {
+					String current_section = CharacterParser.getInstance().getSelling(current_item.getjName()).substring(0, 1).toUpperCase(Locale.getDefault());
 
 					if (!prev_section.equals(current_section)) {
-						item = new JContacts();
-						item.setjName(current_section);
-						mListItems.add(item);
+						mListItems.add(current_item);//Word
+						mListSectionPos.add(mListItems.indexOf(current_item));
 						mListItems.add(current_item);
-						mListSectionPos.add(mListItems.indexOf(item));
+
 						prev_section = current_section;
 					} else {
 						mListItems.add(current_item);
