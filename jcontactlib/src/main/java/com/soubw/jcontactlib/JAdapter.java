@@ -200,22 +200,34 @@ public abstract class JAdapter<T extends JContacts> extends BaseAdapter{
 			mListItems.clear();
 			mListSectionPos.clear();
 			List<T> itemsList = params[0];
+			boolean isReFilter = true;
 			if (itemsList.size() > 0) {
 				// 根据a-z进行排序
 				Collections.sort(itemsList, new JSortComparator());
 				String prev_section = "";
 				for (T current_item : itemsList) {
 					String current_section = CharacterParser.getInstance().getSelling(current_item.getjName()).substring(0, 1).toUpperCase(Locale.getDefault());
+					if(JIndexBarView.INDEX_WORD.contains(current_section)){
+						if (!prev_section.equals(current_section)) {
+							mListItems.add(current_item);//Word
+							mListSectionPos.add(mListItems.indexOf(current_item));
+							mListItems.add(current_item);
 
-					if (!prev_section.equals(current_section)) {
-						mListItems.add(current_item);//Word
-						mListSectionPos.add(mListItems.indexOf(current_item));
-						mListItems.add(current_item);
-
-						prev_section = current_section;
-					} else {
-						mListItems.add(current_item);
+							prev_section = current_section;
+						} else {
+							mListItems.add(current_item);
+						}
+					}else{
+						if(isReFilter){
+							mListItems.add(current_item);//Word
+							mListSectionPos.add(mListItems.indexOf(current_item));
+							mListItems.add(current_item);
+							isReFilter = false;
+						}else {
+							mListItems.add(current_item);
+						}
 					}
+
 				}
 			}
 			return null;

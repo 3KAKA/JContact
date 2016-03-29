@@ -18,8 +18,10 @@ import android.view.View;
 public class JIndexBarView<T extends JContacts> extends View {
 
 
-    public static final int INDEX_MAX_HEIGHT = 26;//以26个字母来平分导航条，显示所涉及字母的高度
-
+    public static final int INDEX_MAX_HEIGHT = 27;//以26个字母+1“#”来平分导航条，显示所涉及字母的高度
+    // 26个字母
+    public static final String INDEX_WORD = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String INDEX_WELL = "#";
     // indexBarMargin默认为10dp
     float mJIndexBarMargin = 10;
 
@@ -121,10 +123,9 @@ public class JIndexBarView<T extends JContacts> extends View {
         }
     }
 
-    
     public boolean onTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
-            
+
             case MotionEvent.ACTION_DOWN:
                 if (contains(ev.getX(), ev.getY())) {
                     mIsIndexing = true;

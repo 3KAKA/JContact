@@ -218,6 +218,7 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 
 	private void initFooter(Context context){
 		footerLayout = new LinearLayout(context);
+		footerLayout.setVisibility(View.INVISIBLE);
 		footerLayout.setClickable(false);
 		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,0);
 		footerLayout.setLayoutParams(layoutParams);
@@ -288,6 +289,14 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
+		if (mJIndexBarView != null && ((JIndexBarView)mJIndexBarView).onTouchEvent(ev)) {
+			setPreviewTextVisibility(true);
+			return true;
+		}
+		else {
+			setPreviewTextVisibility(false);
+
+		}
 		switch (ev.getAction()) {
 		case MotionEvent.ACTION_DOWN://触摸按下
 			mLastY = ev.getRawY();//触摸点相对于屏幕的Y坐标,记录在mLastY
@@ -311,19 +320,7 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 			break;
 		}
 
-		////////////
-		if (mJIndexBarView != null && ((JIndexBarView)mJIndexBarView).onTouchEvent(ev)) {
-			setPreviewTextVisibility(true);
-			return true;
-		}
-		else {
-			setPreviewTextVisibility(false);
-			return super.onTouchEvent(ev);
-		}
-		//////////////////
-
-
-		//return super.onTouchEvent(ev);
+		return super.onTouchEvent(ev);
 	}
 
 	@Override

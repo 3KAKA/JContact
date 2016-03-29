@@ -21,7 +21,13 @@ public class JContacts implements Serializable {
     public void setjName(String jName) {
         this.jName = jName;
         if (jName !=null && !jName.isEmpty()){
-            setjFirstWord(CharacterParser.getInstance().getSelling(jName).substring(0, 1).toUpperCase(Locale.getDefault()));
+            String word = CharacterParser.getInstance().getSelling(jName).substring(0, 1).toUpperCase(Locale.getDefault());
+            if(JIndexBarView.INDEX_WORD.contains(word)){
+                setjFirstWord(word);
+            }else{
+                setjFirstWord(JIndexBarView.INDEX_WELL);
+            }
+
         }
     }
 

@@ -2,7 +2,10 @@ package com.soubw.jcontact;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.soubw.jcontactlib.JAdapter;
 import com.soubw.jcontactlib.JContacts;
@@ -24,8 +27,6 @@ public class MainActivity extends Activity{
     private JAdapter mAdaptor;
 
     private ProgressBar mLoadingView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,14 @@ public class MainActivity extends Activity{
                 R.layout.jcontact_section_row_view,//列表字母view
                 mLoadingView//加载View
         );
+        JListView jListView = (JListView) findViewById(R.id.lvList);
+        jListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MainBean bean = (MainBean)parent.getAdapter().getItem(position);
+                Toast.makeText(MainActivity.this,bean.getjName(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
