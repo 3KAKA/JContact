@@ -25,7 +25,7 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 	private LinearLayout headerLayout;
 	private LinearLayout footerLayout;
 
-	private int mTotalItemCount;//item的总数
+	private int mTotalItemCount;
 
 	private Scroller mScroller;
 	private OnScrollListener mScrollListener;
@@ -39,48 +39,24 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 	private JClearEditText jClearEditText;
 
 
-
-	/////////////////////
-	/**
-	 * 导航视图
-	 */
 	View mJIndexBarView;
-	/**
-	 * 导航的宽度
-	 */
+
 	int mJIndexBarViewWidth;
-	/**
-	 * 导航的高度
-	 */
+
 	int mJIndexBarViewHeight;
-	/**
-	 * 导航的边距
-	 */
+
 	int mJIndexBarViewMargin;
-	/**
-	 * 导航字母列表
-	 */
+
 	ArrayList<Integer> mListSections;
-	/**
-	 * 是否显示导航视图
-	 */
+
 	boolean mJIndexBarVisibility=true;
 
-	/**
-	 * 预览字母的视图（触压时显示）
-	 */
 	View mPreviewTextView;
 
-	/**
-	 * 是否显示预览字母
-	 */
 	boolean mPreviewVisibility=false;
 	int mPreviewTextViewWidth;
 	int	mPreviewTextViewHeight;
 
-	/**
-	 * 触压导航条显示字母所对应的位置
-	 */
 	float mIndexBarY;
 
 	public void setJIndexBarView(View indexBarView,ArrayList<Integer> mListSections) {
@@ -169,10 +145,6 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 		setSelection(position);
 	}
 
-	//////////////////
-
-
-
 	public JListView(Context context) {
 		this(context,null);
 	}
@@ -188,7 +160,6 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 
 	private void init(Context context) {
 
-		//自定义Scroller为了做滚动监听，使用Animation的减速插值类，模仿拖拉反弹效果
 		mScroller = new Scroller(context, new DecelerateInterpolator());
 		super.setOnScrollListener(this);
 
@@ -200,7 +171,7 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 
 	}
 
-	private void initHeader(Context context){//初始化并添加ListView头部拉出后的布局
+	private void initHeader(Context context){
 		headerLayout = new LinearLayout(context);
 		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
 		headerLayout.setLayoutParams(layoutParams);
@@ -226,7 +197,7 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 		setFooterDividersEnabled(false);
 	}
 
-	private void setVisibleHeaderHeight(int height) {//设置头部显示的高度
+	private void setVisibleHeaderHeight(int height) {
 		if (height < 0)
 			height = 0;
 		LayoutParams lp = (LayoutParams) headerLayout.getLayoutParams();
@@ -234,16 +205,16 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 		headerLayout.setLayoutParams(lp);
 	}
 
-	private int getVisibleHeaderHeight() {//获取头部显示的高度
+	private int getVisibleHeaderHeight() {
 		return headerLayout.getLayoutParams().height;
 	}
 
-	private void updateHeaderHeight(float delta) {//更新头部的高度
+	private void updateHeaderHeight(float delta) {
 		setVisibleHeaderHeight((int) delta + getVisibleHeaderHeight());
 		setSelection(0); // scroll to top each time
 	}
 
-	private void resetHeaderHeight() {//重置头部视图高度（还原）
+	private void resetHeaderHeight() {
 		int height = getVisibleHeaderHeight();
 		if (height == 0)
 			return;
@@ -273,7 +244,7 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 		setFooterHeight(height);
 	}
 
-	private void resetFooterHeight() {//重置尾部视图高度（还原）
+	private void resetFooterHeight() {
 		int bottomMargin = getFooterHeight();
 		if (bottomMargin > 0) {
 			mScrollBack = SCROLL_BACK_FOOTER;
@@ -298,26 +269,26 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 
 		}
 		switch (ev.getAction()) {
-		case MotionEvent.ACTION_DOWN://触摸按下
-			mLastY = ev.getRawY();//触摸点相对于屏幕的Y坐标,记录在mLastY
-			break;
-		case MotionEvent.ACTION_MOVE://触摸移动
-			final float deltaY = ev.getRawY() - mLastY;//用正负值判断移动方向
-			mLastY = ev.getRawY();
-			if (getFirstVisiblePosition() == 0 &&  deltaY > 0) {//向下拉取，更新头部
-				updateHeaderHeight(deltaY / OFFSET_RADIO);
-			} else if (getLastVisiblePosition() == mTotalItemCount - 1 && deltaY < 0) {//向上拉去，更新尾部
-				updateFooterHeight(-deltaY / OFFSET_RADIO);
-			}
-			break;
-		case MotionEvent.ACTION_UP://触摸抬起
-			if (getFirstVisiblePosition() == 0) {
-				resetHeaderHeight();
-			} else if (getLastVisiblePosition() == mTotalItemCount - 1) {
-				resetFooterHeight();
-			}
-		default:
-			break;
+			case MotionEvent.ACTION_DOWN:
+				mLastY = ev.getRawY();
+				break;
+			case MotionEvent.ACTION_MOVE:
+				final float deltaY = ev.getRawY() - mLastY;
+				mLastY = ev.getRawY();
+				if (getFirstVisiblePosition() == 0 &&  deltaY > 0) {
+					updateHeaderHeight(deltaY / OFFSET_RADIO);
+				} else if (getLastVisiblePosition() == mTotalItemCount - 1 && deltaY < 0) {
+					updateFooterHeight(-deltaY / OFFSET_RADIO);
+				}
+				break;
+			case MotionEvent.ACTION_UP:
+				if (getFirstVisiblePosition() == 0) {
+					resetHeaderHeight();
+				} else if (getLastVisiblePosition() == mTotalItemCount - 1) {
+					resetFooterHeight();
+				}
+			default:
+				break;
 		}
 
 		return super.onTouchEvent(ev);

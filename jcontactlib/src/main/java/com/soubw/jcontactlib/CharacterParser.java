@@ -1,9 +1,4 @@
 package com.soubw.jcontactlib;
-
-/**
- * Java汉字转换为拼音
- * 
- */
 public class CharacterParser {
 	private static int[] pyvalue = new int[] {-20319, -20317, -20304, -20295, -20292, -20283, -20265, -20257, -20242, -20230, -20051, -20036, -20032,
 			-20026, -20002, -19990, -19986, -19982, -19976, -19805, -19784, -19775, -19774, -19763, -19756, -19751, -19746, -19741, -19739, -19728,
@@ -63,8 +58,6 @@ public class CharacterParser {
 	public static CharacterParser getInstance() {
 		return InnerInstance.instance;
 	}
-
-	/** * 汉字转成ASCII码 * * @param chs * @return */
 	private int getChsAscii(String chs) {
 		int asc = 0;
 		try {
@@ -85,8 +78,6 @@ public class CharacterParser {
 		}
 		return asc;
 	}
-
-	/** * 单字解析 * * @param str * @return */
 	public String convert(String str) {
 		String result = null;
 		int ascii = getChsAscii(str);
@@ -103,7 +94,6 @@ public class CharacterParser {
 		return result;
 	}
 
-	/** * 词组解析 * * @param chs * @return */
 	public String getSelling(String chs) {
 		String key, value;
 		buffer = new StringBuilder();

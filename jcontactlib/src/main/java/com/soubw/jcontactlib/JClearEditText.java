@@ -24,8 +24,8 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 		this(context, null);
 	}
 
+
 	public JClearEditText(Context context, AttributeSet attrs) {
-		// 这里构造方法也很重要，不加自定义EditText的很多属性就失效了
 		this(context, attrs, android.R.attr.editTextStyle);
 	}
 
@@ -49,12 +49,13 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 		setOnFocusChangeListener(this);
 		addTextChangedListener(this);
 		setBackgroundResource(R.drawable.jclearedittext_bg);
-		setCompoundDrawables(mIconDrawable,null,null,null);//按setBounds进行设置
-		//setCompoundDrawablesWithIntrinsicBounds(mIconDrawable,null,null,null);按图片大小进行设置
+		//按setBounds进行设置
+		setCompoundDrawables(mIconDrawable,null,null,null);
+		//setCompoundDrawablesWithIntrinsicBounds(mIconDrawable,null,null,null);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
 		lp.setMargins(20,10,20,10);
 		setLayoutParams(lp);
-		setHint("请输入关键字");
+		setHint(R.string.hint_notice_msg);
 
 	}
 
@@ -72,10 +73,7 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 		super.onLayout(changed, left, top, right, bottom);
 	}
 
-	/**
-	 * 因为我们不能直接给EditText设置点击事件，所以我们用记住我们按下的位置来模拟点击事件 当我们按下的位置 在 EditText的宽度 -
-	 * 图标到控件右边的间距 - 图标的宽度 和 EditText的宽度 - 图标到控件右边的间距之间我们就算点击了图标，竖直方向没有考虑
-	 */
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		if (getCompoundDrawables()[2] != null) {
@@ -90,9 +88,7 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 		return super.onTouchEvent(event);
 	}
 
-	/**
-	 * 当ClearEditText焦点发生变化的时候，判断里面字符串长度设置清除图标的显示与隐藏
-	 */
+
 	@Override
 	public void onFocusChange(View v, boolean hasFocus) {
 		if (hasFocus) {
@@ -106,19 +102,13 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 		}
 	}
 
-	/**
-	 * 设置清除图标的显示与隐藏，调用setCompoundDrawables为EditText绘制上去
-	 * 
-	 * @param visible
-	 */
+
 	protected void setClearIconVisible(boolean visible) {
 		Drawable right = visible ? mClearDrawable : null;
 		setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1], right, getCompoundDrawables()[3]);
 	}
 
-	/**
-	 * 当输入框里面内容发生变化的时候回调的方法
-	 */
+
 	@Override
 	public void onTextChanged(CharSequence s, int start, int count, int after) {
 		if (jClearEditTextListener != null) jClearEditTextListener.requestRefreshAdapter(s);

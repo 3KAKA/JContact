@@ -48,7 +48,7 @@ public class MainActivity extends Activity{
                 R.layout.jcontact_preview_view,//预览字母背景图
                 R.layout.jcontact_row_view,//列表内容view
                 R.layout.jcontact_section_row_view,//列表字母view
-                mLoadingView//加载View
+                mLoadingView//加载LoadingView
         );
         JListView jListView = (JListView) findViewById(R.id.lvList);
         jListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

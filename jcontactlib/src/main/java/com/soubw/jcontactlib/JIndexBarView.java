@@ -16,16 +16,14 @@ import android.view.View;
  * Created by WX_JIN on 2016/3/10.
  */
 public class JIndexBarView<T extends JContacts> extends View {
-
-
-    public static final int INDEX_MAX_HEIGHT = 27;//以26个字母+1“#”来平分导航条，显示所涉及字母的高度
-    // 26个字母
+    //26 words and "#"
+    public static final int INDEX_MAX_HEIGHT = 27;
+    // 26 words
     public static final String INDEX_WORD = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     public static final String INDEX_WELL = "#";
-    // indexBarMargin默认为10dp
+
     float mJIndexBarMargin = 10;
 
-    // 默认字体大小为12sp
     private float mJIndexBarTextSize = 12;
 
     float mSideIndexY;
@@ -37,31 +35,31 @@ public class JIndexBarView<T extends JContacts> extends View {
     public ArrayList<Integer> mListSections;
 
     ArrayList<T> mListItems;
-    
+
     Paint mIndexPaint;
 
     Context mContext;
 
     JIndexBarFilter mIndexBarFilter;
 
-    
+
     public JIndexBarView(Context context) {
         super(context);
         this.mContext = context;
     }
 
-    
+
     public JIndexBarView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
     }
-    
+
 
     public JIndexBarView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.mContext = context;
     }
-    
+
 
     public void setData(JListView listView, ArrayList<T> listItems,ArrayList<Integer> listSections) {
         this.mListItems = listItems;
@@ -99,22 +97,22 @@ public class JIndexBarView<T extends JContacts> extends View {
         super.onDraw(canvas);
     }
 
-    
+
     public String getSectionText(int sectionPosition) {
         return mListItems.get(sectionPosition).getjFirstWord();
     }
 
-    
+
     boolean contains(float x, float y) {
 
         return (x >= getLeft() && y >= getTop() && y <= getTop() + getMeasuredHeight());
     }
 
-    
+
     void filterListItem(float sideIndexY) {
         mSideIndexY = sideIndexY;
         mCurrentSectionPosition = (int) (((mSideIndexY) - getTop() - mJIndexBarMargin) /
-                                    ((getMeasuredHeight()*mListSections.size()/INDEX_MAX_HEIGHT) / mListSections.size()));
+                ((getMeasuredHeight()*mListSections.size()/INDEX_MAX_HEIGHT) / mListSections.size()));
 
         if (mCurrentSectionPosition >= 0 && mCurrentSectionPosition < mListSections.size()) {
             int position = mListSections.get(mCurrentSectionPosition);

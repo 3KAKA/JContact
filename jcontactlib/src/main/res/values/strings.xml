@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JContactLib</string>
+    <string name="hint_notice_msg">Please enter a keyword</string>
 </resources>

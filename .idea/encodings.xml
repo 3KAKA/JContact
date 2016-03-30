@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/app/build.gradle" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/proguard-rules.pro" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/soubw/jcontact/MainAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/build.gradle" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/build.gradle" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/proguard-rules.pro" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/CharacterParser.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/JAdapter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/JClearEditText.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/JContacts.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/JIndexBarFilter.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/JIndexBarView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/JListView.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/JSortComparator.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/jcontactlib/src/main/java/com/soubw/jcontactlib/JViewHolder.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/settings.gradle" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

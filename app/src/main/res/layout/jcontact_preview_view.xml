@@ -4,7 +4,7 @@
         android:id="@+id/preview_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/ic_arrow" 
+        android:background="@drawable/jcontact_arrow"
         android:textStyle="bold"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"

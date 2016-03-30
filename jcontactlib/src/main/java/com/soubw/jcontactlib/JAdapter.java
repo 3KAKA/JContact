@@ -21,24 +21,17 @@ public abstract class JAdapter<T extends JContacts> extends BaseAdapter{
 
 	public static final int TYPE_ITEM = 0;
 	public static final int TYPE_SECTION = 1;
-	/**
-	 * 最大类型总数
-	 */
-	private static final int TYPE_MAX_COUNT = 2;
 
+	private static final int TYPE_MAX_COUNT = 2;
 	/**
-	 * 完整手机通讯录好友信息列表
+	 * all Contacts list
 	 */
 	private List<T> jContactsList;
-
 	/**
-	 * 包含字母信息和好友信息列表
+	 * contain words list
 	 */
 	ArrayList<Integer> mListSectionPos = new ArrayList<>();
 
-	/**
-	 * 导航字母列表
-	 */
 	ArrayList<T> mListItems = new ArrayList<>();
 
 	Context mContext;
@@ -75,7 +68,7 @@ public abstract class JAdapter<T extends JContacts> extends BaseAdapter{
 			public void requestRefreshAdapter(CharSequence s) {
 				String str = s.toString();
 				if (this != null && str != null){
-						filterData(str);
+					filterData(str);
 				}
 			}
 		});
@@ -132,13 +125,7 @@ public abstract class JAdapter<T extends JContacts> extends BaseAdapter{
 		return holder.getConvertView();
 	}
 
-	/**
-	 * 抽象方法
-	 * 填充数据
-	 * @param holder
-	 * @param bean
-	 * @param type
-     */
+
 	public abstract void convert(JViewHolder holder, T bean,int type);
 
 	private void setUpdateDate(ArrayList<T> listItems, ArrayList<Integer> listSectionPos){
@@ -153,12 +140,6 @@ public abstract class JAdapter<T extends JContacts> extends BaseAdapter{
 		filterData(null);
 	}
 
-
-
-	/**
-	 * 过滤列表数据
-	 * @param s
-	 */
 	private void filterData(String s){
 		setIndexBarViewVisibility(s);
 		List<T> jFilterList = new ArrayList<>();
@@ -202,7 +183,6 @@ public abstract class JAdapter<T extends JContacts> extends BaseAdapter{
 			List<T> itemsList = params[0];
 			boolean isReFilter = true;
 			if (itemsList.size() > 0) {
-				// 根据a-z进行排序
 				Collections.sort(itemsList, new JSortComparator());
 				String prev_section = "";
 				for (T current_item : itemsList) {

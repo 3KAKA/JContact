@@ -11,7 +11,7 @@
         android:orientation="vertical" >
 
         <include
-            layout="@layout/loading_view"
+            layout="@layout/jcontact_loading_view"
             />
         <com.soubw.jcontactlib.JListView
         android:id="@+id/lvList"
