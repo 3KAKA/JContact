@@ -141,16 +141,19 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
 		super.onLayout(changed, left, top, right, bottom);
-		int tempJIndexViewHeight = getMeasuredHeight()*mListSections.size()/JIndexBarView.INDEX_MAX_HEIGHT;
-		if (mJIndexBarView != null && mJIndexBarVisibility) {
-			mJIndexBarView.layout(getMeasuredWidth()- mJIndexBarViewMargin - mJIndexBarViewWidth,(getMeasuredHeight()-tempJIndexViewHeight)/2
-					, getMeasuredWidth()- mJIndexBarViewMargin, getMeasuredHeight()/2+tempJIndexViewHeight/2);
+		if(!isInEditMode()){
+			int tempJIndexViewHeight = getMeasuredHeight()*mListSections.size()/JIndexBarView.INDEX_MAX_HEIGHT;
+			if (mJIndexBarView != null && mJIndexBarVisibility) {
+				mJIndexBarView.layout(getMeasuredWidth()- mJIndexBarViewMargin - mJIndexBarViewWidth,(getMeasuredHeight()-tempJIndexViewHeight)/2
+						, getMeasuredWidth()- mJIndexBarViewMargin, getMeasuredHeight()/2+tempJIndexViewHeight/2);
+			}
+
+			if (mPreviewTextView != null && mPreviewVisibility) {
+				mPreviewTextView.layout(mJIndexBarView.getLeft()-mPreviewTextViewWidth, (int)mIndexBarY-(mPreviewTextViewHeight/2)
+						, mJIndexBarView.getLeft(), (int)(mIndexBarY-(mPreviewTextViewHeight/2))+mPreviewTextViewHeight);
+			}
 		}
 
-		if (mPreviewTextView != null && mPreviewVisibility) {
-			mPreviewTextView.layout(mJIndexBarView.getLeft()-mPreviewTextViewWidth, (int)mIndexBarY-(mPreviewTextViewHeight/2)
-					, mJIndexBarView.getLeft(), (int)(mIndexBarY-(mPreviewTextViewHeight/2))+mPreviewTextViewHeight);
-		}
 	}
 
 
