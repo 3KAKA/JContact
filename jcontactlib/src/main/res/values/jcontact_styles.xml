@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="JClearEditText">
+        <attr name="jClearEditTextBg" format="reference" />//reference：参考某一资源ID
+        <attr name="jClearEditTextCloseBg" format="reference" />//reference：参考某一资源ID
+        <attr name="jClearEditTextIconBg" format="reference" />//reference：参考某一资源ID
+        <attr name="jClearEditTextNotice" format="string"/>//string:字符串
+    </declare-styleable>
+
+</resources>

@@ -8,7 +8,7 @@ def gitUrl = 'https://github.com/WX-JIN/JContact.git'   //Git仓库的地址
 
 group = "com.soubw"//发布aar前缀根节点
 
-version = "0.0.4"//发布aar的库版本
+version = "0.1.0"//发布aar的库版本
 
 //最后生成是compile 'com.soubw:jcontactlib:0.0.1' 就是group + ：+module名字 + ：+version
 

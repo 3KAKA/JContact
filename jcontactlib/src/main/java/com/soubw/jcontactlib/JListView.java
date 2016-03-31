@@ -1,8 +1,11 @@
 package com.soubw.jcontactlib;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
@@ -58,6 +61,55 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 	int	mPreviewTextViewHeight;
 
 	float mIndexBarY;
+	public static int jClearEditTextBg;
+	public static int jClearEditTextCloseBg;
+	public static int jClearEditTextIconBg;
+	public static String jClearEditTextNotice;
+
+	public JListView(Context context) {
+		this(context,null);
+	}
+
+	public JListView(Context context, AttributeSet attrs) {
+		this(context, attrs,0);
+	}
+
+	public JListView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		obtainAttributes(context, attrs);
+		init(context);
+	}
+
+
+	private void obtainAttributes(Context context, AttributeSet attrs) {
+		TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.JClearEditText);
+
+		jClearEditTextBg = ta.getResourceId(R.styleable.JClearEditText_jClearEditTextBg,
+				R.drawable.jclearedittext_default_bg);
+		jClearEditTextCloseBg = ta.getResourceId(R.styleable.JClearEditText_jClearEditTextCloseBg,
+				R.drawable.jclearedittext_default_close_bg);
+		jClearEditTextIconBg = ta.getResourceId(R.styleable.JClearEditText_jClearEditTextIconBg,
+				R.drawable.jclearedittext_default_icon_bg);
+		jClearEditTextNotice = ta.getString(R.styleable.JClearEditText_jClearEditTextNotice);
+		ta.recycle();
+	}
+
+
+	private void init(Context context) {
+
+		mScroller = new Scroller(context, new DecelerateInterpolator());
+		super.setOnScrollListener(this);
+
+		initHeader(context);
+
+		initJClearEditText(context);
+
+		initFooter(context);
+
+	}
+
+
+
 
 	public void setJIndexBarView(View indexBarView,ArrayList<Integer> mListSections) {
 		mJIndexBarViewMargin = 10;
@@ -145,37 +197,14 @@ public class JListView extends ListView implements OnScrollListener,JIndexBarFil
 		setSelection(position);
 	}
 
-	public JListView(Context context) {
-		this(context,null);
-	}
 
-	public JListView(Context context, AttributeSet attrs) {
-		this(context, attrs,0);
-	}
-
-	public JListView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		init(context);
-	}
-
-	private void init(Context context) {
-
-		mScroller = new Scroller(context, new DecelerateInterpolator());
-		super.setOnScrollListener(this);
-
-		initHeader(context);
-
-		initJClearEditText(context);
-
-		initFooter(context);
-
-	}
 
 	private void initHeader(Context context){
 		headerLayout = new LinearLayout(context);
 		LayoutParams layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
 		headerLayout.setLayoutParams(layoutParams);
 		addHeaderView(headerLayout);
+		setHeaderDividersEnabled(false);
 	}
 
 	private void initJClearEditText(Context context){

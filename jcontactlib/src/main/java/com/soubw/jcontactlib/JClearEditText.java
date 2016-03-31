@@ -1,6 +1,7 @@
 package com.soubw.jcontactlib;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,10 +21,11 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 	private Drawable mIconDrawable;
 	private JListView.JClearEditTextListener jClearEditTextListener;
 
+
+
 	public JClearEditText(Context context) {
 		this(context, null);
 	}
-
 
 	public JClearEditText(Context context, AttributeSet attrs) {
 		this(context, attrs, android.R.attr.editTextStyle);
@@ -31,33 +33,38 @@ public class JClearEditText extends EditText implements OnFocusChangeListener, T
 
 	public JClearEditText(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+
 		init();
 	}
 
 	private void init() {
 		mClearDrawable = getCompoundDrawables()[2];
 		if (mClearDrawable == null) {
-			mClearDrawable = getResources().getDrawable(R.drawable.jclearedittext_btn_bg);
+			mClearDrawable = getResources().getDrawable(JListView.jClearEditTextCloseBg);
 		}
 		mClearDrawable.setBounds(0, 0, mClearDrawable.getIntrinsicWidth()*2/3, mClearDrawable.getIntrinsicHeight()*2/3);
 		mIconDrawable = getCompoundDrawables()[0];
 		if(mIconDrawable == null){
-			mIconDrawable = getResources().getDrawable(R.drawable.jclearedittext_icon);
+			mIconDrawable = getResources().getDrawable(JListView.jClearEditTextIconBg);
 		}
 		mIconDrawable.setBounds(0, 0, mIconDrawable.getIntrinsicWidth()/2, mIconDrawable.getIntrinsicHeight()/2);
 		setClearIconVisible(false);
 		setOnFocusChangeListener(this);
 		addTextChangedListener(this);
-		setBackgroundResource(R.drawable.jclearedittext_bg);
+		setBackgroundResource(JListView.jClearEditTextBg);
 		//按setBounds进行设置
 		setCompoundDrawables(mIconDrawable,null,null,null);
 		//setCompoundDrawablesWithIntrinsicBounds(mIconDrawable,null,null,null);
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
 		lp.setMargins(20,10,20,10);
 		setLayoutParams(lp);
-		setHint(R.string.hint_notice_msg);
+		setHint(JListView.jClearEditTextNotice);
 
 	}
+
+
+
+
 
 	public void setJClearEditTextListener(JListView.JClearEditTextListener jClearEditTextListener){
 		this.jClearEditTextListener = jClearEditTextListener;

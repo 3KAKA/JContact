@@ -13,9 +13,9 @@ Android 自定义通讯录（仿Ios反弹效果+模糊搜索+查看手机通讯�
 
 	引入依赖
 	```
-    compile 'com.soubw:jcontactlib:0.0.4'
-	```
-
+    compile 'com.soubw:jcontactlib:0.1.0'
+	```	
+	
 ##	调用示例
 
 ### 添加继承实体对象JContacts（可直接使用JContacts实体对象，根据自己是否需要扩展实体属性）
@@ -78,6 +78,26 @@ public class MainAdapter extends JAdapter {
         );
 
 ```	
+
+##	0.1.0版本
+
+### 新增可自己选择搜索框的背景框和图标，以及提示文字
+
+```java
+        <com.soubw.jcontactlib.JListView
+            android:id="@+id/lvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:dividerHeight="0.1dp"
+            android:divider="@android:color/black"
+            jcontact:jClearEditTextBg="@drawable/jclearedittext_bg"
+            jcontact:jClearEditTextCloseBg="@drawable/jclearedittext_close_bg"
+            jcontact:jClearEditTextIconBg="@drawable/jclearedittext_icon_bg"
+            jcontact:jClearEditTextNotice="请输入关键字"
+            android:scrollbars="none"/>
+
+```	
+
 
 详细可以参考Demo
 		
